@@ -116,6 +116,25 @@ function _vm_build_impl() {
     for file in flatcar_production_image.bin.bz2 flatcar_production_image_sysext.squashfs flatcar_production_image.vmlinuz version.txt; do
         copy_from_buildcache "images/${arch}/${vernum}/${file}" "${images_in}"
     done
+
+    # Download prebuilt OEM sysexts
+    source build_library/oem_sysexts.sh
+    local sysext name arches arch_array
+    for sysext in "${OEM_SYSEXTS[@]}"; do
+        IFS="|" read -r name _ _ arches <<< "$sysext"
+        # Skip if sysext doesn't support this architecture
+        if [[ -n "$arches" ]]; then
+            arch_array=(${arches//,/ })
+            local should_skip=1
+            local a
+            for a in "${arch_array[@]}"; do
+                [[ "$a" == "$arch" ]] && should_skip=0
+            done
+            [[ $should_skip -eq 1 ]] && continue
+        fi
+        copy_from_buildcache "images/${arch}/${vernum}/${name}.raw" "${images_in}"
+    done
+
     lbunzip2 "${images_in}/flatcar_production_image.bin.bz2"
     ./run_sdk_container -x ./ci-cleanup.sh -n "${vms_container}" -C "${packages_image}" \
             -v "${vernum}" \
