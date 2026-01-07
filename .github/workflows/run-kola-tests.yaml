@@ -17,7 +17,7 @@ on:
 jobs:
   tests:
     name: "Run Kola tests"
-    runs-on: oracle-16cpu-64gb-x86-64
+    runs-on: oracle-vm-32cpu-128gb-x86-64
     strategy:
       fail-fast: false
       matrix:
@@ -233,7 +233,7 @@ jobs:
     name: "Merge TAP reports and post results"
     needs: tests
     if: always() && !cancelled()
-    runs-on: oracle-16cpu-64gb-x86-64
+    runs-on: oracle-vm-32cpu-128gb-x86-64
     permissions:
       pull-requests: write
 
