@@ -2,6 +2,10 @@
 # Copyright 2012 The Chromium OS Authors.
 # Distributed under the terms of the GNU General Public License v2
 
+# @ECLASS-VARIABLE: COREOS_SOURCE_RASPBERRYPI
+# @DESCRIPTION:
+: ${COREOS_SOURCE_RASPBERRYPI:=}
+
 # @ECLASS-VARIABLE: COREOS_SOURCE_REVISION
 # @DESCRIPTION:
 # Revision of the source ebuild, e.g. -r1. default is ""
@@ -36,7 +40,12 @@ SRC_URI=""
 IUSE=""
 
 BDEPEND="dev-util/pahole"
-DEPEND="=sys-kernel/coreos-sources-${COREOS_SOURCE_VERSION}"
+
+if [[ -z ${COREOS_SOURCE_RASPBERRYPI} ]]; then
+	DEPEND="=sys-kernel/coreos-sources-${COREOS_SOURCE_VERSION}"
+else
+	DEPEND="=sys-kernel/raspberrypi-sources-${COREOS_SOURCE_VERSION}"
+fi
 
 # Do not analyze or strip installed files
 RESTRICT="binchecks strip"

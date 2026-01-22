@@ -2,12 +2,13 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
+COREOS_SOURCE_RASPBERRYPI=1
 COREOS_SOURCE_REVISION=""
 inherit coreos-kernel savedconfig
 
 DESCRIPTION="CoreOS Linux kernel modules"
 KEYWORDS="amd64 arm64"
-RDEPEND="!<sys-kernel/coreos-kernel-4.6.3-r1"
+RDEPEND="!<sys-kernel/raspberrypi-kernel-4.6.3-r1"
 
 KERNEL=kernel_2712
 

@@ -9,8 +9,7 @@ HOMEPAGE="http://coreos.com"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="amd64 arm arm64 x86"
-IUSE="selinux"
-
+IUSE="selinux raspberrypi"
 
 ################################################################################
 #
@@ -198,8 +197,14 @@ RDEPEND="${RDEPEND}
 	sys-fs/multipath-tools
 	sys-fs/quota
 	sys-fs/xfsprogs
-	sys-kernel/coreos-firmware
-	sys-kernel/coreos-kernel
+	raspberrypi? (
+		sys-kernel/raspberrypi-firmware
+		sys-kernel/raspberrypi-kernel
+	)
+	!raspberrypi? (
+		sys-kernel/coreos-firmware
+		sys-kernel/coreos-kernel
+	)
 	sys-libs/glibc
 	sys-libs/nss-usrfiles
 	sys-libs/timezone-data

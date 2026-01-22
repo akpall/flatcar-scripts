@@ -2,6 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
+COREOS_SOURCE_RASPBERRYPI=1
 COREOS_SOURCE_REVISION=""
 inherit coreos-kernel toolchain-funcs
 
@@ -9,7 +10,7 @@ DESCRIPTION="CoreOS Linux kernel"
 KEYWORDS="amd64 arm64"
 RESTRICT="userpriv" # dracut (via bootengine) needs root
 
-RDEPEND="=sys-kernel/coreos-modules-${PVR}"
+RDEPEND="=sys-kernel/raspberrypi-modules-${PVR}"
 BDEPEND="
 	sys-kernel/dracut
 "
@@ -46,7 +47,7 @@ DEPEND="
 	sys-fs/mdadm
 	sys-fs/xfsprogs
 	>=sys-kernel/bootengine-0.0.38-r37:=
-	>=sys-kernel/coreos-firmware-20180103-r1:=
+	>=sys-kernel/raspberrypi-firmware-20180103-r1:=
 	virtual/udev
 	amd64? ( sys-firmware/intel-microcode:= )
 "
